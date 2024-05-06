@@ -1,3 +1,3 @@
 ```shell
-sudo chown -R 1000:100012345678 ./wp
+sudo chown -R 1000:1000 ./wp
 ```
