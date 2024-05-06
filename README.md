@@ -1,5 +1,3 @@
-## Development Environment
-
 ```shell
-docker build -t "dayan3847/wp:dev" ./dockerfile/wp_dev
+sudo chown -R 1000:100012345678 ./wp
 ```

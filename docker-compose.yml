@@ -1,0 +1,32 @@
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress_db_name
+      MYSQL_USER: wordpress_db_user
+      MYSQL_PASSWORD: wordpress_db_pass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - ./db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+  wordpress:
+    depends_on:
+      - db
+    image: dayan3847/wordpress:dev
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress_db_name
+      WORDPRESS_DB_USER: wordpress_db_user
+      WORDPRESS_DB_PASSWORD: wordpress_db_pass
+      WORDPRESS_DEBUG: '1'
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_HOME', 'http://localhost/');
+        define('WP_SITEURL', 'http://localhost/');
+        define('WP_DEBUG_DISPLAY', true);
+    volumes:
+      - ./wp:/var/www/html
