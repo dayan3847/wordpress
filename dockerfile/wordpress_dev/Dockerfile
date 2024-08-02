@@ -19,5 +19,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 # install xdebug
 RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
+COPY ./99-xdebug.ini /usr/local/etc/php/conf.d
 
 #USER www-data

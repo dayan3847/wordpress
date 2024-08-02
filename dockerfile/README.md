@@ -9,6 +9,16 @@ docker build -t "dayan3847/wordpress:dev" ./wordpress_dev
 ```
 
 ```shell
+docker push "dayan3847/wordpress:dev"
+```
+
+```shell
+docker run --rm --user www-data -it dayan3847/wordpress:dev bash
+```
+
+## test
+
+```shell
 docker build -t "dayan3847/wordpress:test" ./wordpress_dev
 ```
 

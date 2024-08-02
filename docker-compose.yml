@@ -8,7 +8,7 @@ services:
       MYSQL_PASSWORD: wordpress_db_pass
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
-      - ./db:/var/lib/mysql
+      - "./db:/var/lib/mysql"
     ports:
       - "3306:3306"
   wordpress:
@@ -28,5 +28,10 @@ services:
         define('WP_HOME', 'http://localhost/');
         define('WP_SITEURL', 'http://localhost/');
         define('WP_DEBUG_DISPLAY', true);
+        define('WP_DEBUG_LOG', true );
+        define('WP_DEBUG_DISPLAY', true);
+        @ini_set( 'display_errors', 1 );
     volumes:
-      - ./wp:/var/www/html
+      - "./wp:/var/www/html"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
