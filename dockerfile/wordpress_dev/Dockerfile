@@ -22,4 +22,10 @@ RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 COPY ./99-xdebug.ini /usr/local/etc/php/conf.d
 
+## fix_www-data.bash
+#COPY ./fix_www-data.bash ./fix_www-data.bash
+#RUN chmod +x ./fix_www-data.bash
+#RUN ./fix_www-data.bash
+#RUN rm ./fix_www-data.bash
+
 #USER www-data

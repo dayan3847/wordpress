@@ -1,3 +1,9 @@
+## give permissions to 1000 for edit on wp
+
+````shell
+sudo setfacl -R -m u:1000:rwx ./wp
+````
+
 ## Development Environment
 
 ```shell
@@ -7,6 +13,13 @@ docker pull wordpress:latest
 ```shell
 docker build -t "dayan3847/wordpress:dev" ./wordpress_dev
 ```
+
+## build without cache
+
+```shell
+docker build --no-cache -t "dayan3847/wordpress:dev" ./wordpress_dev
+```
+
 
 ```shell
 docker push "dayan3847/wordpress:dev"
