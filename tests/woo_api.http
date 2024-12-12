@@ -1,0 +1,34 @@
+### Requesting / Generating Token
+POST http://localhost/wp-json/jwt-auth/v1/token
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+> {%
+    client.global.set("token", response.body.data.token);
+%}
+
+### Validating Token
+POST http://localhost/wp-json/jwt-auth/v1/token/validate
+Authorization: Bearer {{token}}
+
+### List all products
+GET http://localhost/wp-json/wc/v3/products
+Authorization: Bearer {{token}}
+
+### List all orders
+GET http://localhost/wp-json/wc/v3/orders
+Authorization: Bearer {{token}}
+
+### List all shipping methods
+GET http://localhost/wp-json/wc/v3/shipping_methods
+Authorization: Bearer {{token}}
+
+### List all shipping methods
+GET http://localhost/wp-json/wc/v3/payment_gateways
+Authorization: Bearer {{token}}
+
+###
