@@ -35,6 +35,7 @@ services:
         define('WP_DEBUG_LOG',true);
         if(!defined('WP_DEBUG_DISPLAY'))define('WP_DEBUG_DISPLAY',true);
         @ini_set( 'display_errors',1);
+        define('JWT_AUTH_SECRET_KEY', 'BGe|*E-OV_6pFat9e=!r7M|oR]8!QwNOG5!+/.Oc5T&gF!-Em[CA~U{X&|7gEvoz');
     volumes:
       - "./log/wordpress/apache2/:/var/log/apache2/"
       - "./volumes/wordpress/.vscode/:/var/www/html/.vscode/"
