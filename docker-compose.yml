@@ -1,5 +1,6 @@
 services:
-  db:
+  mysql:
+    container_name: demo_mysql
     image: mysql
     restart: always
     environment:
@@ -8,33 +9,35 @@ services:
       MYSQL_PASSWORD: wordpress_db_pass
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
-      - "./db:/var/lib/mysql"
+      - "./log/mysql/:/var/log/"
+      - "./volumes/mysql/data/:/var/lib/mysql/"
     ports:
       - "3306:3306"
   wordpress:
+    container_name: demo_wordpress
     depends_on:
-      - db
+      - mysql
     image: dayan3847/wordpress:dev
     restart: always
     ports:
       - "80:80"
     environment:
-      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_NAME: wordpress_db_name
       WORDPRESS_DB_USER: wordpress_db_user
       WORDPRESS_DB_PASSWORD: wordpress_db_pass
       WORDPRESS_DEBUG: '1'
       WORDPRESS_CONFIG_EXTRA: |
-        define('WP_HOME', 'http://localhost/');
-        define('WP_SITEURL', 'http://localhost/');
-        define('WP_DEBUG_DISPLAY', true);
-        define('WP_DEBUG_LOG', true );
-        define('WP_DEBUG_DISPLAY', true);
-        @ini_set( 'display_errors', 1 );
+        define('WP_HOME','http://localhost/');
+        define('WP_SITEURL','http://localhost/');
+        define('WP_DEBUG_DISPLAY',true);
+        define('WP_DEBUG_LOG',true);
+        if(!defined('WP_DEBUG_DISPLAY'))define('WP_DEBUG_DISPLAY',true);
+        @ini_set( 'display_errors',1);
     volumes:
-      - "./wp:/var/www/html"
-      # - "./wp/wp-content/uploads:/var/www/html/wp-content/uploads"
-      # - "./wp/wp-content/plugins:/var/www/html/wp-content/plugins"
-      # - "./wp/wp-content/themes:/var/www/html/wp-content/themes"
+      - "./log/wordpress/apache2/:/var/log/apache2/"
+      - "./volumes/wordpress/.vscode/:/var/www/html/.vscode/"
+      - "./volumes/wordpress/my_plugins/my_plugin/:/var/www/html/wp-content/plugins/my_plugin/"
+      - "./volumes/wordpress/wp-content/:/var/www/html/wp-content/"
     extra_hosts:
       - "host.docker.internal:host-gateway"
