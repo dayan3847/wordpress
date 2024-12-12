@@ -42,3 +42,16 @@ services:
       - "./volumes/wordpress/wp-content/:/var/www/html/wp-content/"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+  nginx:
+    container_name: demo_nginx
+    image: nginx
+    ports:
+      - '81:80'
+      - '443:443'
+    volumes:
+      - './log/nginx/:/var/log/nginx/'
+      # - './volumes/nginx/conf.d/:/etc/nginx/conf.d/'
+    restart: always
+    privileged: true
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
